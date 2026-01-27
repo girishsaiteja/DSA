@@ -1,0 +1,44 @@
+
+Sum Pair closest to target
+
+
+class Solution {
+  public:
+    vector<int> sumClosest(vector<int>& arr, int target) {
+        // code here
+        sort(arr.begin(),arr.end());
+        int n=arr.size();
+        if(n<2){
+            return {};
+        }
+        int ele1=arr[0];
+        int ele2=arr[n-1];
+        int diff=INT_MAX;
+        int start=0;
+        int end=n-1;
+        
+        while(start<end){
+            int sum = arr[start] + arr[end];
+            int currdiff = abs(target -sum);
+            
+            if(currdiff < diff){
+                diff = currdiff;
+                ele1= arr[start];
+                ele2=arr[end];
+            }
+            else if(currdiff==diff){
+                if(abs(arr[start]-arr[end])> abs(ele1-ele2)){
+                    ele1=arr[start];
+                    ele2=arr[end];
+                }
+            }
+            if(sum>target)end--;
+            else start++;
+        }
+        
+        return {ele1,ele2};
+        
+        
+    }
+};
+
